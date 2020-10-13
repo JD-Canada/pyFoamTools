@@ -8,8 +8,7 @@ import numpy as np
 import h5py
 import pandas as pd
 from scipy.spatial.transform import Rotation as R
-
-
+from pathlib import Path
 class FileProcessing():
     
     """
@@ -28,7 +27,7 @@ class FileProcessing():
         """
         Calls findItems() and createProcessFolder()
         """
-        print('hi')
+        
         self.casePath=casePath
         self.findItems()
         self.createProcessedFolder()
@@ -90,9 +89,14 @@ class FileProcessing():
                                     
             except IndexError:
                 pass
-            
-        print('Found a total of %d *.xy lines' %len(self.processingItems['xylines']))
-        print('Found a total of %d *.vtp surfaces' %len(self.processingItems['vtpSurfaces']))
+        try:    
+            print('Found a total of %d *.xy lines' %len(self.processingItems['xylines']))
+        except KeyError:
+            pass
+        try:
+            print('Found a total of %d *.vtp surfaces' %len(self.processingItems['vtpSurfaces']))
+        except KeyError:
+            pass
         
 
     def createProcessedFolder(self):
