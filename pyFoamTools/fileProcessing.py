@@ -110,6 +110,7 @@ class FileProcessing():
         except:
             print('Making postProcessinOrdered directory ...')
             os.system("mkdir %s " % self.processedPath)
+            os.system("mkdir %s " % self.processedPath+'/'+"surfaces")
 
             for surfaceName in self.surfaceNames:
                 print('Makine %s subdirectory' % surfaceName)
