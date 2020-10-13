@@ -1,11 +1,17 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: pyFoamTools
 Version: 0.1
-Summary: Growing collection of tools for OpenFOAM
-Home-page: http://github.com/storborg/funniest
-Author: Flying Circus
+Summary: Growing collection of tools to process OpenFOAM related data
+Home-page: jasonduguay.ca
+Author: Jason Duguay
 Author-email: duguay.jason@gmail.com
 License: MIT
-Description-Content-Type: UNKNOWN
+Download-URL: https://github.com/user/reponame/archive/v_01.tar.gz
 Description: UNKNOWN
+Keywords: python,OpenFOAM,postprocessing
 Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.6

@@ -28,6 +28,7 @@ class FileProcessing():
         """
         Calls findItems() and createProcessFolder()
         """
+        print('hi')
         self.casePath=casePath
         self.findItems()
         self.createProcessedFolder()

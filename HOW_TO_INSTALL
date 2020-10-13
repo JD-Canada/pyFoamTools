@@ -1,0 +1,14 @@
+
+Type:
+
+pip install -e "./pyFoamTools"
+
+from the directory above the one this file your reading is in.
+
+Example:
+
+If the location of pyFoamTools folder is:
+
+c:/Users/Username/Desktop/pyFoamTools
+
+then run the pip install command from the Desktop directory
