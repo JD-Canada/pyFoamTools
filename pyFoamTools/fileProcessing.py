@@ -42,7 +42,7 @@ class FileProcessing():
         """    
 
         ## (str) Path to the postProcessing folder of the OpenFOAM case
-        self.postProcessingPath=self.casePath+"\\"+"postProcessing"
+        self.postProcessingPath=self.casePath+"/"+"postProcessing"
 
         ## (dict) Contains names (keys) for each surface and line in the postprocessing folder
         self.processingItems={}
@@ -53,13 +53,13 @@ class FileProcessing():
             try:
 
                 #get path to first time step in folder
-                firstTime=next(os.walk(self.postProcessingPath+"\\"+item))[1][0]
+                firstTime=next(os.walk(self.postProcessingPath+"/"+item))[1][0]
                 
                 #concatenate path to first time step
-                subFolderPath=self.postProcessingPath+"\\"+item+"\\"+firstTime
+                subFolderPath=self.postProcessingPath+"/"+item+"/"+firstTime
                 
                 ## (list) Paths to each *.xy file in the first time-step's folder
-                self.linePaths=glob("%s\\*.xy"%subFolderPath)
+                self.linePaths=glob("%s/*.xy"%subFolderPath)
                 
                 # check to see if there are lines in postProcessing folder
                 if self.linePaths:
@@ -71,22 +71,22 @@ class FileProcessing():
                     for path in self.linePaths:
                         
                         head,tail = os.path.split(path)
-                        self.processingItems['xylines'][tail.split(".")[0]]=self.postProcessingPath+"\\"+item
+                        self.processingItems['xylines'][tail.split(".")[0]]=self.postProcessingPath+"/"+item
                 
                 # check to see if there are surfaces in the folder
-                self.surfaceNames=glob("%s\\*.vtp"%subFolderPath)
+                self.surfaceNames=glob("%s/*.vtp"%subFolderPath)
 
                 if self.surfaceNames:
                     
                     print("Found *.vtp type surfaces in %s folder" %item)
                     
-                    #self.surfacePath=self.postProcessingPath+"\\"+"postProcessing"+"\\"+item
+                    #self.surfacePath=self.postProcessingPath+"/"+"postProcessing"+"/"+item
                    
                     self.processingItems['vtpSurfaces']={}
                     
                     for path in self.surfaceNames:
                         head,tail = os.path.split(path)
-                        self.processingItems['vtpSurfaces'][tail.split(".")[0]]=self.postProcessingPath+"\\"+item
+                        self.processingItems['vtpSurfaces'][tail.split(".")[0]]=self.postProcessingPath+"/"+item
                                     
             except IndexError:
                 pass
@@ -100,7 +100,7 @@ class FileProcessing():
         Creates a folder called 'postProcessingOrdered' in case directory if it does not already exist.
         """
 
-        self.processedPath=self.casePath+"\\"+"postProcessingOrdered"
+        self.processedPath=self.casePath+"/"+"postProcessingOrdered"
         try:
             os.stat(self.processedPath)
         except:
@@ -116,7 +116,7 @@ class FileProcessing():
         if 'vtpSurfaces' in self.processingItems:
                
             for name,path in self.processingItems['vtpSurfaces'].items():
-                destinationPath=self.processedPath+"\\"+"surfaces"+"\\"+name
+                destinationPath=self.processedPath+"/"+"surfaces"+"/"+name
                 os.system("mkdir %s" %destinationPath)
                 times,paths,result=self.get_vtp_files(path,name,destinationPath)
                 #threading.Thread(target=self.threadedOrderVtpFiles, args=(path,name,destinationPath)).start()
@@ -130,7 +130,7 @@ class FileProcessing():
         if 'vtpSurfaces' in self.processingItems:
                
             for name,path in self.processingItems['vtpSurfaces'].items():
-                destinationPath=self.processedPath+"\\"+"surfaces"+"\\"+name
+                destinationPath=self.processedPath+"/"+"surfaces"+"/"+name
                 os.system("mkdir %s" %destinationPath)
                 threading.Thread(target=self.threadedOrderVtpFiles, args=(path,name,destinationPath)).start()
 
@@ -166,12 +166,12 @@ class FileProcessing():
             
             for i in result:
     
-                if '\\'+time+'\\' in i:
+                if '/'+time+'/' in i:
                     
                     if (basename in i):
                         orderedList.append(i)
                         
-                elif time.split('.')[1] == '0' and '\\'+time.split('.')[0]+'\\' in i:
+                elif time.split('.')[1] == '0' and '/'+time.split('.')[0]+'/' in i:
 
                     if (basename in i):
                         orderedList.append(i)
@@ -186,7 +186,7 @@ class FileProcessing():
             print('Renaming "%s" to "%s" and copying ...' %(basename,newname))
             
             
-            destinationFilePath=destinationPath+"\\"+newname
+            destinationFilePath=destinationPath+"/"+newname
             shutil.copyfile(file, destinationFilePath) 
             
         return(times,orderedList,result)
@@ -217,7 +217,7 @@ class FileProcessing():
                 if "%s.xy" % lineName in file:
                     print(lineName)
                     times.append(float(os.path.basename(root)))
-                    paths.append(root+"\\"+file)
+                    paths.append(root+"/"+file)
                     
         zipped=zip(times,paths)
         
@@ -232,7 +232,7 @@ class FileProcessing():
 
         if 'xylines' in self.processingItems:
             
-            destinationPath=self.processedPath+"\\"+"lines"
+            destinationPath=self.processedPath+"/"+"lines"
             os.system("mkdir %s" %destinationPath)
             
             for name,path in self.processingItems['xylines'].items():
@@ -250,7 +250,7 @@ class FileProcessing():
 
         if 'xylines' in self.processingItems:
             
-            destinationPath=self.processedPath+"\\"+"lines"
+            destinationPath=self.processedPath+"/"+"lines"
             os.system("mkdir %s" %destinationPath)
             
             for name,path in self.processingItems['xylines'].items():
@@ -271,7 +271,7 @@ class FileProcessing():
         Places .xy line data into h5 format. Data is added in the order of the list of paths. 
         """
         step=0
-        h5 = h5py.File('%s\\%s.h5' % (destinationPath,h5name), 'w')
+        h5 = h5py.File('%s/%s.h5' % (destinationPath,h5name), 'w')
         
         for t in paths:
             print(t)

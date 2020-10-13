@@ -7,8 +7,8 @@ setup(
   description = 'Growing collection of tools to process OpenFOAM related data',   # Give a short description about your library
   author = 'Jason Duguay',                   # Type in your name
   author_email = 'duguay.jason@gmail.com',      # Type in your E-Mail
-  url = 'jasonduguay.ca',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
+  url = 'https://github.com/Fishified/pyFoamTools',   # Provide either the link to your github or to your website
+  download_url = 'https://github.com/Fishified/pyRiverPTV/archive/0.1.tar.gz',    # I explain this later on
   keywords = ['python', 'OpenFOAM', 'postprocessing'],   # Keywords that define your package best
   install_requires=[            # I get to this in a second
           'validators',
