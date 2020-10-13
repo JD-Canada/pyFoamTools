@@ -30,7 +30,7 @@ class FileProcessing():
         
         self.casePath=casePath
         self.findItems()
-        self.createProcessedFolder()
+        self.createProcessedFolders()
 
     def findItems(self):
         
@@ -99,17 +99,22 @@ class FileProcessing():
             pass
         
 
-    def createProcessedFolder(self):
+    def createProcessedFolders(self):
         """
         Creates a folder called 'postProcessingOrdered' in case directory if it does not already exist.
         """
-
+        
         self.processedPath=self.casePath+"/"+"postProcessingOrdered"
         try:
             os.stat(self.processedPath)
         except:
-            print('made a new directory')
+            print('Making postProcessinOrdered directory ...')
             os.system("mkdir %s " % self.processedPath)
+
+            for surfaceName in self.surfaceNames:
+                print('Makine %s subdirectory' % surfaceName)
+                os.system("mkdir %s " % self.processedPath+"/"+surfaceName)
+
 
     def processVtpSurfacesSerial(self):
         
